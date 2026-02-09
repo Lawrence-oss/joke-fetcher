@@ -5,17 +5,19 @@ let punchline = document.getElementById('punchline');
 let error = document.getElementById('error');
 
 async function fetchJoke() {
-  const response = await fetch('https://official-joke-api.appspot.com/random_joke');
+  loading.textContent = "loading.."
+  error.textContent = ""
+  try{const response = await fetch('https://official-joke-api.appspot.com/random_joke');
   console.log(response);
   const data = await response.json();
-
   setup.textContent = data.setup;
   punchline.textContent = data.punchline;
+  } catch (err) {error.textContent = "something went wrong"};
+  loading.textContent = ""
 
 }
 
 fetchBtn.addEventListener("click", () => {
-  loading.textContent = "loading.."
   fetchJoke()
 })
 
